@@ -19,13 +19,19 @@ abstract class AbstractRepository
 
     public function getAll(array $filters): ?LengthAwarePaginator
     {
-        $query = $this->model::query();
+        try {
+            $query = $this->model::query();
 
-        $this->applyFilters($query, $filters);
+            $this->applyFilters($query, $filters);
 
-        $results = $query->orderBy('created_at', 'desc')->paginate(15);
+            $results = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return $results;
+            return $results;
+        } catch (\Exception $e) {
+            Log::error('Erro ao listar todos os registros: ' . $e->getMessage());
+
+            return null;
+        }
     }
 
     abstract protected function applyFilters($query, array $filters);
@@ -38,6 +44,43 @@ abstract class AbstractRepository
             return $model;
         } catch (\Exception $e) {
             Log::error('Erro ao salvar os dados: ' . $e->getMessage());
+
+            return null;
+        }
+    }
+
+    public function getById(int $id): ?Model
+    {
+        try {
+            return $this->model->find($id);
+        } catch (\Exception $e) {
+            Log::error('Erro ao encontrar os dados: ' . $e->getMessage());
+
+            return null;
+        }
+    }
+
+    public function update(array $data, int $id): ?Model
+    {
+        try {
+            $this->model->findOrFail($id)->update($data);
+
+            return $this->getById($id);
+        } catch (\Exception $e) {
+            Log::error('Erro ao atualizar os dados: ' . $e->getMessage());
+
+            return null;
+        }
+    }
+
+    public function delete(int $id): ?object
+    {
+        try {
+            $this->model->findOrFail($id)->delete();
+
+            return (object) 'Registro deletado com sucesso';
+        } catch (\Exception $e) {
+            Log::error('Erro ao deletar os dados: ' . $e->getMessage());
 
             return null;
         }

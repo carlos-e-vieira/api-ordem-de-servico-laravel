@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserFormRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
@@ -35,18 +34,26 @@ class UserController extends Controller
         return response()->json(['success' => true, 'response' => $response], Response::HTTP_CREATED);
     }
 
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
+        $response = $this->userService->getUserById($id);
 
+        return response()->json(['seccess' = true, 'response' => $response], Response::HTTP_OK);
     }
 
-    public function update(UserFormRequest $userFormRequest, int $id)
+    public function update(UserFormRequest $userFormRequest, int $id): JsonResponse
     {
+        $requestData = $userFormRequest->only('name', 'email', 'password');
 
+        $response = $this->userService->updateUser($requestData, $id);
+
+        return response()->json(['success' => true, 'response' => $response], Response::HTTP_OK);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
+        $response = $this->userService->deleteUser($id);
 
+        return response()->json(['success' => true, 'response' => $response], Response::HTTP_OK);
     }
 }

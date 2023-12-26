@@ -14,6 +14,5 @@ class UserExceptions extends OrchestratorException
         'getUserById' => Response::HTTP_NOT_FOUND,
         'updateUser' => Response::HTTP_UNPROCESSABLE_ENTITY,
         'deleteUser' => Response::HTTP_NOT_FOUND,
-        'resetUserPassword' => Response::HTTP_UNPROCESSABLE_ENTITY
     ];
 }

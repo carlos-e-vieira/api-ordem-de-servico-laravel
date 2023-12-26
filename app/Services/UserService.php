@@ -30,9 +30,36 @@ class UserService
     {
         $user = $this->userRepository->save($data);
 
-        $this->checkEmpty($user, 'Erro ao listar cadastrar os dados do usuário');
+        $this->checkEmpty($user, 'Erro ao cadastrar os dados do usuário');
 
         return $user;
+    }
+
+    public function getUserById(int $id): object
+    {
+        $user = $this->userRepository->getById($id);
+
+        $this->checkEmpty($user, 'Erro ao buscar os dados do usuário');
+
+        return $user;
+    }
+
+    public function updateUser(array $data, int $id): object
+    {
+        $user = $this->userRepository->update($data, $id);
+
+        $this->checkEmpty($user, 'Erro ao atualizar os dados do usuário');
+
+        return $user;
+    }
+
+    public function deleteUser(int $id): object
+    {
+        $message = $this->userRepository->delete($id);
+
+        $this->checkEmpty($message, 'Erro ao deletar os dados do usuário');
+
+        return $message;
     }
 
     private function checkEmpty(object $data, string $errorMessage): void
