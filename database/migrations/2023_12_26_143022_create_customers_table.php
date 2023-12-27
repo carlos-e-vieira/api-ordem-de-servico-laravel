@@ -13,9 +13,11 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 40);
-            $table->string('cpf', 11)->unique();
-            $table->string('email', 60);
+            $table->enum('document_type', ['cpf', 'cnpj']);
+            $table->string('document_number', 14)->unique();
+            $table->string('email', 60)->unique();
             $table->integer('phone', 11);
+            $table->string('company_name', 40);
             $table->timestamps();
         });
     }

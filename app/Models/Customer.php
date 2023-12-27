@@ -13,13 +13,10 @@ class Customer extends Model
 
     protected $fillable = [
         'name',
-        'cpf',
+        'document_type',
+        'document_number',
         'email',
-        'phone'
+        'phone',
+        'company',
     ];
-
-    public function company()
-    {
-        return $this->hasMany(Company::class);
-    }
 }

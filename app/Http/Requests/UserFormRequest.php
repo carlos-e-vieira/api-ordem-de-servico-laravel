@@ -19,11 +19,11 @@ class UserFormRequest extends FormRequest
         $action = $this->route()->getActionMethod();
 
         if ($action === 'update') {
-            return $this->onPut();
+            return array_merge($this->commonRules(), $this->onPut());
         }
 
         if ($action === 'store') {
-            return $this->onPost();
+            return array_merge($this->commonRules(), $this->onPost());
         }
 
         return $this->onGet();
@@ -43,21 +43,25 @@ class UserFormRequest extends FormRequest
         ];
     }
 
+    public function commonRules(): array
+    {
+        return [
+            'name' => 'required|string|min:3|max:50',
+            'password' => 'required|string|min:4|max:30',
+        ];
+    }
+
     private function onPost(): array
     {
         return [
-            'name' => 'required|min:3|max:50',
             'email' => 'required|string|email|min:8|max:100|' . Rule::unique('users', 'email'),
-            'password' => 'required|min:4|max:30'
         ];
     }
 
     private function onPut(): array
     {
         return [
-            'name' => 'required|min:3|max:50',
             'email' => 'required|string|email|min:8|max:100|', Rule::unique('users', 'email')->ignore($this->id),
-            'password' => 'required|min:4|max:30'
         ];
     }
 
@@ -66,7 +70,7 @@ class UserFormRequest extends FormRequest
         return [
             'name' => 'nullable',
             'email' => 'nullable',
-            'password' => 'nullable'
+            'password' => 'nullable',
         ];
     }
 }
