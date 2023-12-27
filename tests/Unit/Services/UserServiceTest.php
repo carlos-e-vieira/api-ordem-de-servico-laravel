@@ -12,8 +12,6 @@ class UserServiceTest extends TestCase
 {
     public function testFileAndPathOfUserService(): void
     {
-        $userService = resolve(UserService::class);
-
         $directory = 'app/services';
         $filePath = 'app/services/UserService.php';
 
