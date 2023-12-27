@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Exceptions\UserExceptions;
+use App\Helpers\Translator;
 use App\Repositories\UserRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -21,7 +22,7 @@ class UserService
     {
         $users = $this->userRepository->getAll($filters);
 
-        $this->checkEmpty($users, 'Erro ao listar todos os registros de usuários');
+        $this->checkEmpty($users, Translator::LIST_ERROR);
 
         return $users;
     }
@@ -30,7 +31,7 @@ class UserService
     {
         $user = $this->userRepository->save($data);
 
-        $this->checkEmpty($user, 'Erro ao cadastrar os dados do usuário');
+        $this->checkEmpty($user, Translator::CREATE_ERROR);
 
         return $user;
     }
@@ -39,7 +40,7 @@ class UserService
     {
         $user = $this->userRepository->getById($id);
 
-        $this->checkEmpty($user, 'Erro ao buscar os dados do usuário');
+        $this->checkEmpty($user, Translator::GET_ERROR);
 
         return $user;
     }
@@ -48,21 +49,21 @@ class UserService
     {
         $user = $this->userRepository->update($data, $id);
 
-        $this->checkEmpty($user, 'Erro ao atualizar os dados do usuário');
+        $this->checkEmpty($user, Translator::UPDATE_ERROR);
 
         return $user;
     }
 
-    public function deleteUser(int $id): object
+    public function deleteUser(int $id): string
     {
         $message = $this->userRepository->delete($id);
 
-        $this->checkEmpty($message, 'Erro ao deletar os dados do usuário');
+        $this->checkEmpty($message, Translator::DELETE_ERROR);
 
         return $message;
     }
 
-    private function checkEmpty($data, string $errorMessage): void
+    private function checkEmpty(mixed $data, string $errorMessage): void
     {
         if (empty($data)) {
             throw new UserExceptions($errorMessage);

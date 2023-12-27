@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Helpers\Translator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +29,7 @@ abstract class AbstractRepository
 
             return $results;
         } catch (\Exception $e) {
-            Log::error('Erro ao listar todos os registros: ' . $e->getMessage());
+            Log::error(Translator::LIST_ERROR . $e->getMessage());
 
             return null;
         }
@@ -43,7 +44,7 @@ abstract class AbstractRepository
 
             return $model;
         } catch (\Exception $e) {
-            Log::error('Erro ao salvar os dados: ' . $e->getMessage());
+            Log::error(Translator::CREATE_ERROR . $e->getMessage());
 
             return null;
         }
@@ -54,7 +55,7 @@ abstract class AbstractRepository
         try {
             return $this->model->find($id);
         } catch (\Exception $e) {
-            Log::error('Erro ao encontrar os dados: ' . $e->getMessage());
+            Log::error(Translator::GET_ERROR . $e->getMessage());
 
             return null;
         }
@@ -67,20 +68,20 @@ abstract class AbstractRepository
 
             return $this->getById($id);
         } catch (\Exception $e) {
-            Log::error('Erro ao atualizar os dados: ' . $e->getMessage());
+            Log::error(Translator::UPDATE_ERROR . $e->getMessage());
 
             return null;
         }
     }
 
-    public function delete(int $id): ?object
+    public function delete(int $id): ?string
     {
         try {
             $this->model->findOrFail($id)->delete();
 
-            return (object) 'Registro deletado com sucesso';
+            return Translator::DELETE_SUCCESS;
         } catch (\Exception $e) {
-            Log::error('Erro ao deletar os dados: ' . $e->getMessage());
+            Log::error(Translator::DELETE_ERROR . $e->getMessage());
 
             return null;
         }

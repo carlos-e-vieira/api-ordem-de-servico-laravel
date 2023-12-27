@@ -5,6 +5,7 @@
  namespace App\Services;
 
 use App\Exceptions\CustomersExceptions;
+use App\Helpers\Translator;
 use App\Repositories\CustomerRepository;
 
  class CustomerService
@@ -20,7 +21,7 @@ use App\Repositories\CustomerRepository;
     {
         $customers = $this->customerRepository->getAll($filters);
 
-        $this->checkEmpty($customers, 'Erro ao listar todos os registros de clientes');
+        $this->checkEmpty($customers, Translator::LIST_ERROR);
 
         return $customers;
     }
@@ -29,7 +30,7 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->save($data);
 
-        $this->checkEmpty($customer, 'Erro ao cadastrar os dados do cliente');
+        $this->checkEmpty($customer, Translator::CREATE_ERROR);
 
         return $customer;
     }
@@ -38,7 +39,7 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->getById($id);
 
-        $this->checkEmpty($customer, 'Erro ao buscar os dados do cliente');
+        $this->checkEmpty($customer, Translator::GET_ERROR);
 
         return $customer;
     }
@@ -47,16 +48,16 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->update($data, $id);
 
-        $this->checkEmpty($customer, 'Erro ao atualizar os dados do cliente');
+        $this->checkEmpty($customer, Translator::UPDATE_ERROR);
 
         return $customer;
     }
 
-    public function deleteCustomer(int $id): object
+    public function deleteCustomer(int $id): string
     {
         $message = $this->customerRepository->delete($id);
 
-        $this->checkEmpty($message, 'Erro ao deletar os dados do cliente');
+        $this->checkEmpty($message, Translator::DELETE_ERROR);
 
         return $message;
     }
