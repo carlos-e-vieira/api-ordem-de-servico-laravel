@@ -19,14 +19,6 @@ class UserServiceTest extends TestCase
         $this->assertFileExists($filePath);
     }
 
-    public function testShouldReturnAnInstance(): void
-    {
-        $userService = resolve(UserService::class);
-        $className = get_class($userService);
-
-        $this->assertEquals(UserService::class, $className);
-    }
-
     public function testGetAllUsers(): void
     {
         $userService = resolve(UserService::class);
@@ -35,8 +27,8 @@ class UserServiceTest extends TestCase
         $result = $userService->getAllUsers($filters);
 
         $this->assertNotEmpty($result);
-        $this->assertIsObject($result);
         $this->assertIsNotArray($result);
+        $this->assertIsObject($result);
         $this->assertInstanceOf(LengthAwarePaginator::class, $result);
     }
 }
