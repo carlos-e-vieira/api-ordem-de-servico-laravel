@@ -62,7 +62,7 @@ class UserService
         return $message;
     }
 
-    private function checkEmpty(object $data, string $errorMessage): void
+    private function checkEmpty($data, string $errorMessage): void
     {
         if (empty($data)) {
             throw new UserExceptions($errorMessage);

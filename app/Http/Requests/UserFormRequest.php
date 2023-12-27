@@ -34,7 +34,7 @@ class UserFormRequest extends FormRequest
         return [
             'required' => 'O campo :attribute é obrigatório',
             'name.min' => 'O nome deve ter 3 caracteres no minímo',
-            'name.max' => 'O nome deve ter 30 caracteres no máximo',
+            'name.max' => 'O nome deve ter 50 caracteres no máximo',
             'email.unique' => 'O Email já existe',
             'email.min' => 'O Email deve ter 5 caracteres',
             'email.max' => 'O Email deve ter 60 caracteres',
@@ -46,8 +46,8 @@ class UserFormRequest extends FormRequest
     private function onPost(): array
     {
         return [
-            'name' => 'required|min:3|max:30',
-            'email' => 'required|min:5|max:60|' . Rule::unique('users', 'email'),
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|string|email|min:8|max:100|' . Rule::unique('users', 'email'),
             'password' => 'required|min:4|max:30'
         ];
     }
@@ -55,8 +55,8 @@ class UserFormRequest extends FormRequest
     private function onPut(): array
     {
         return [
-            'name' => 'required|min:3|max:30',
-            'email' => 'required|min:5|max:60|' . Rule::unique('users', 'email')->ignore($this->id),
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|string|email|min:8|max:100|', Rule::unique('users', 'email')->ignore($this->id),
             'password' => 'required|min:4|max:30'
         ];
     }

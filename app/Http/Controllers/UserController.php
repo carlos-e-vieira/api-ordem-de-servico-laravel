@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $response = $this->userService->getUserById($id);
 
-        return response()->json(['seccess' = true, 'response' => $response], Response::HTTP_OK);
+        return response()->json(['seccess' => true, 'response' => $response], Response::HTTP_OK);
     }
 
     public function update(UserFormRequest $userFormRequest, int $id): JsonResponse
