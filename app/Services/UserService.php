@@ -21,11 +21,11 @@ class UserService
 
     public function getAllUsers(array $filters): LengthAwarePaginator
     {
-        $users = $this->userRepository->getAll($filters);
+        $usersPaginated = $this->userRepository->getAll($filters);
 
-        $this->checkEmpty($users, StatusMessage::LIST_ERROR);
+        $this->checkEmpty($usersPaginated, StatusMessage::LIST_ERROR);
 
-        return UserResource::collection($users);
+        return $usersPaginated;
     }
 
     public function saveUser(array $data): UserResource
