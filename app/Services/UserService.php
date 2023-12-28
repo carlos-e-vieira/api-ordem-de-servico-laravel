@@ -28,7 +28,7 @@ class UserService
         return UserResource::collection($users);
     }
 
-    public function saveUser(array $data): object
+    public function saveUser(array $data): UserResource
     {
         $user = $this->userRepository->save($data);
 
@@ -37,7 +37,7 @@ class UserService
         return new UserResource($user);
     }
 
-    public function getUserById(int $id): object
+    public function getUserById(int $id): UserResource
     {
         $user = $this->userRepository->getById($id);
 
@@ -46,7 +46,7 @@ class UserService
         return new UserResource($user);
     }
 
-    public function updateUser(array $data, int $id): object
+    public function updateUser(array $data, int $id): UserResource
     {
         $user = $this->userRepository->update($data, $id);
 
