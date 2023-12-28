@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Exceptions\UserExceptions;
 use App\Helpers\Translator;
+use App\Http\Resources\UserResource;
 use App\Repositories\UserRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -24,7 +25,7 @@ class UserService
 
         $this->checkEmpty($users, Translator::LIST_ERROR);
 
-        return $users;
+        return UserResource::collection($users);
     }
 
     public function saveUser(array $data): object
@@ -33,7 +34,7 @@ class UserService
 
         $this->checkEmpty($user, Translator::CREATE_ERROR);
 
-        return $user;
+        return new UserResource($user);
     }
 
     public function getUserById(int $id): object
@@ -42,7 +43,7 @@ class UserService
 
         $this->checkEmpty($user, Translator::GET_ERROR);
 
-        return $user;
+        return new UserResource($user);
     }
 
     public function updateUser(array $data, int $id): object
@@ -51,16 +52,16 @@ class UserService
 
         $this->checkEmpty($user, Translator::UPDATE_ERROR);
 
-        return $user;
+        return new UserResource($user);
     }
 
     public function deleteUser(int $id): string
     {
-        $message = $this->userRepository->delete($id);
+        $response = $this->userRepository->delete($id);
 
-        $this->checkEmpty($message, Translator::DELETE_ERROR);
+        $this->checkEmpty($response, Translator::DELETE_ERROR);
 
-        return $message;
+        return Translator::DELETE_SUCCESS;
     }
 
     private function checkEmpty(mixed $data, string $errorMessage): void
