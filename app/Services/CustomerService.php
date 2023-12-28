@@ -6,7 +6,9 @@
 
 use App\Exceptions\CustomersExceptions;
 use App\Helpers\StatusMessage;
+use App\Http\Resources\CustomerResource;
 use App\Repositories\CustomerRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
  class CustomerService
  {
@@ -19,38 +21,38 @@ use App\Repositories\CustomerRepository;
 
     public function getAllCustomers(array $filters): LengthAwarePaginator
     {
-        $customers = $this->customerRepository->getAll($filters);
+        $customersPaginated = $this->customerRepository->getAll($filters);
 
-        $this->checkEmpty($customers, StatusMessage::LIST_ERROR);
+        $this->checkEmpty($customersPaginated, StatusMessage::LIST_ERROR);
 
-        return $customers;
+        return $customersPaginated;
     }
 
-    public function saveCustomer(array $data): object
+    public function saveCustomer(array $data): CustomerResource
     {
         $customer = $this->customerRepository->save($data);
 
         $this->checkEmpty($customer, StatusMessage::CREATE_ERROR);
 
-        return $customer;
+        return new CustomerResource($customer);
     }
 
-    public function getCustomerById(int $id): object
+    public function getCustomerById(int $id): CustomerResource
     {
         $customer = $this->customerRepository->getById($id);
 
         $this->checkEmpty($customer, StatusMessage::GET_ERROR);
 
-        return $customer;
+        return new CustomerResource($customer);
     }
 
-    public function updateCustomer(array $data, int $id): object
+    public function updateCustomer(array $data, int $id): CustomerResource
     {
         $customer = $this->customerRepository->update($data, $id);
 
         $this->checkEmpty($customer, StatusMessage::UPDATE_ERROR);
 
-        return $customer;
+        return new CustomerResource($customer);
     }
 
     public function deleteCustomer(int $id): string

@@ -27,7 +27,7 @@ class CustomerController extends Controller
 
     public function store(CustomerFormRequest $customerFormRequest): JsonResponse
     {
-        $requestData = $customerFormRequest->only('name', 'document_type', 'document_number', 'email', 'phone', 'company');
+        $requestData = $customerFormRequest->only('name', 'document_type', 'document_number', 'email', 'phone', 'company_name');
         
         $response = $this->customerService->saveCustomer($requestData);
 
@@ -43,7 +43,7 @@ class CustomerController extends Controller
 
     public function update(CustomerFormRequest $customerFormRequest, int $id): JsonResponse
     {
-        $requestData = $customerFormRequest->only('name', 'document_type', 'document_number', 'email', 'phone', 'company');
+        $requestData = $customerFormRequest->only('name', 'document_type', 'document_number', 'email', 'phone', 'company_name');
 
         $response = $this->customerService->updateCustomer($requestData, $id);
 

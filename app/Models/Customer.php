@@ -17,6 +17,6 @@ class Customer extends Model
         'document_number',
         'email',
         'phone',
-        'company',
+        'company_name',
     ];
 }
