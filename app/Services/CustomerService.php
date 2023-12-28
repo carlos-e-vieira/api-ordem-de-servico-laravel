@@ -5,7 +5,7 @@
  namespace App\Services;
 
 use App\Exceptions\CustomersExceptions;
-use App\Helpers\Translator;
+use App\Helpers\StatusMessage;
 use App\Repositories\CustomerRepository;
 
  class CustomerService
@@ -21,7 +21,7 @@ use App\Repositories\CustomerRepository;
     {
         $customers = $this->customerRepository->getAll($filters);
 
-        $this->checkEmpty($customers, Translator::LIST_ERROR);
+        $this->checkEmpty($customers, StatusMessage::LIST_ERROR);
 
         return $customers;
     }
@@ -30,7 +30,7 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->save($data);
 
-        $this->checkEmpty($customer, Translator::CREATE_ERROR);
+        $this->checkEmpty($customer, StatusMessage::CREATE_ERROR);
 
         return $customer;
     }
@@ -39,7 +39,7 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->getById($id);
 
-        $this->checkEmpty($customer, Translator::GET_ERROR);
+        $this->checkEmpty($customer, StatusMessage::GET_ERROR);
 
         return $customer;
     }
@@ -48,7 +48,7 @@ use App\Repositories\CustomerRepository;
     {
         $customer = $this->customerRepository->update($data, $id);
 
-        $this->checkEmpty($customer, Translator::UPDATE_ERROR);
+        $this->checkEmpty($customer, StatusMessage::UPDATE_ERROR);
 
         return $customer;
     }
@@ -57,7 +57,7 @@ use App\Repositories\CustomerRepository;
     {
         $message = $this->customerRepository->delete($id);
 
-        $this->checkEmpty($message, Translator::DELETE_ERROR);
+        $this->checkEmpty($message, StatusMessage::DELETE_ERROR);
 
         return $message;
     }

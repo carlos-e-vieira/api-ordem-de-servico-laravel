@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Translator;
+use App\Helpers\StatusMessage;
 use App\Http\Requests\AuthFormRequest;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         auth('api')->logout();
 
-        return response()->json(['success' => true, 'message' => Translator::LOGOUT_SUCCESS]);
+        return response()->json(['success' => true, 'message' => StatusMessage::LOGOUT_SUCCESS]);
     }
 
     public function refresh(): JsonResponse

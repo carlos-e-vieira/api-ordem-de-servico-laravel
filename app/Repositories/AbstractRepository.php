@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Helpers\Translator;
+use App\Helpers\StatusMessage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +29,7 @@ abstract class AbstractRepository
 
             return $results;
         } catch (\Exception $e) {
-            Log::error(Translator::LIST_ERROR . $e->getMessage());
+            Log::error(StatusMessage::LIST_ERROR . $e->getMessage());
 
             return null;
         }
@@ -44,7 +44,7 @@ abstract class AbstractRepository
 
             return $model;
         } catch (\Exception $e) {
-            Log::error(Translator::CREATE_ERROR . $e->getMessage());
+            Log::error(StatusMessage::CREATE_ERROR . $e->getMessage());
 
             return null;
         }
@@ -55,7 +55,7 @@ abstract class AbstractRepository
         try {
             return $this->model->find($id);
         } catch (\Exception $e) {
-            Log::error(Translator::GET_ERROR . $e->getMessage());
+            Log::error(StatusMessage::GET_ERROR . $e->getMessage());
 
             return null;
         }
@@ -68,7 +68,7 @@ abstract class AbstractRepository
 
             return $this->getById($id);
         } catch (\Exception $e) {
-            Log::error(Translator::UPDATE_ERROR . $e->getMessage());
+            Log::error(StatusMessage::UPDATE_ERROR . $e->getMessage());
 
             return null;
         }
@@ -79,9 +79,9 @@ abstract class AbstractRepository
         try {
             $this->model->findOrFail($id)->delete();
 
-            return Translator::DELETE_SUCCESS;
+            return StatusMessage::DELETE_SUCCESS;
         } catch (\Exception $e) {
-            Log::error(Translator::DELETE_ERROR . $e->getMessage());
+            Log::error(StatusMessage::DELETE_ERROR . $e->getMessage());
 
             return null;
         }

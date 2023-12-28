@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-final class Translator
+final class StatusMessage
 {
     public const LIST_ERROR = 'Erro ao listar todos os registros';
     public const CREATE_ERROR = 'Erro ao cadastrar os dados';
