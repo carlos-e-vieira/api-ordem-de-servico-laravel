@@ -7,7 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ServiceForSaleFormRequest extends FormRequest
+class ServiceFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -51,14 +51,14 @@ class ServiceForSaleFormRequest extends FormRequest
     private function onPost(): array
     {
         return [
-            'title' => 'required|string|min:3|max:50|' . Rule::unique('services_for_sale', 'title'),
+            'title' => 'required|string|min:3|max:50|' . Rule::unique('services', 'title'),
         ];
     }
 
     private function onPut(): array
     {
         return [
-            'title' => 'required|string|min:3|max:50|', Rule::unique('services_for_sale', 'title')->ignore($this->id),
+            'title' => 'required|string|min:3|max:50|', Rule::unique('services', 'title')->ignore($this->id),
         ];
     }
 

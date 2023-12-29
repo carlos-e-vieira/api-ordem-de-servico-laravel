@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\ServiceForSale;
+use App\Models\Service;
 use App\Repositories\AbstractRepository;
 
-class ServiceForSaleRepository extends AbstractRepository
+class ServiceRepository extends AbstractRepository
 {
-    public function __construct(ServiceForSale $serviceForSale)
+    public function __construct(Service $service)
     {
-        parent::__construct($serviceForSale);
+        parent::__construct($service);
     }
 
     protected function applyFilters($query, array $filters): void

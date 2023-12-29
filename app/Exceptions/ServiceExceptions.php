@@ -6,7 +6,7 @@ namespace App\Exceptions;
 
 use Illuminate\Http\Response;
 
-class ServiceForSaleExceptions extends OrchestratorException
+class ServiceExceptions extends OrchestratorException
 {
     protected $errorStatuses = [
         'getAllServicesForSale' => Response::HTTP_NOT_FOUND,
