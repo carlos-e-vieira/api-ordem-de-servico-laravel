@@ -30,9 +30,7 @@ class OrderOfServiceService
 
     public function saveOrderOfService(array $data): OrderOfServiceResource
     {
-        $userId = ['user_id' => auth()->user()->id];
-
-        $orderOfService = $this->orderOfServiceRepository->save(array_merge($userId, $data));
+        $orderOfService = $this->orderOfServiceRepository->save($this->mergeUserIdAndRequestData($data));
 
         $this->checkEmpty($orderOfService, StatusMessage::CREATE_ERROR);
 
@@ -50,7 +48,7 @@ class OrderOfServiceService
 
     public function updateOrderOfService(array $data, int $id): OrderOfServiceResource
     {
-        $orderOfService = $this->orderOfServiceRepository->update($data, $id);
+        $orderOfService = $this->orderOfServiceRepository->update($this->mergeUserIdAndRequestData($data), $id);
 
         $this->checkEmpty($orderOfService, StatusMessage::UPDATE_ERROR);
 
@@ -71,5 +69,12 @@ class OrderOfServiceService
         if (empty($data)) {
             throw new OrderOfServiceExceptions($errorMessage);
         }
+    }
+
+    private function mergeUserIdAndRequestData(array $data): array
+    {
+        $userId = ['user_id' => auth()->user()->id];
+
+        return array_merge($userId, $data);
     }
 }
