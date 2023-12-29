@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('service_id');
             $table->enum('status', ['opened', 'in_progress', 'waiting_for_approval', 'completed', 'canceled']);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }

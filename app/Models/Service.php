@@ -15,4 +15,9 @@ class Service extends Model
         'title',
         'price'
     ];
+
+    public function orderOfService(): mixed
+    {
+        return $this->hasMany(OrderOfService::class);
+    }
 }

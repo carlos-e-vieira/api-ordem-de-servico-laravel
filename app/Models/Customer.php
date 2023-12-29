@@ -19,4 +19,9 @@ class Customer extends Model
         'phone',
         'company_name',
     ];
+
+    public function orderOfService(): mixed
+    {
+        return $this->hasMany(OrderOfService::class);
+    }
 }
