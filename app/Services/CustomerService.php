@@ -4,7 +4,7 @@
 
  namespace App\Services;
 
-use App\Exceptions\CustomersExceptions;
+use App\Exceptions\CustomerExceptions;
 use App\Helpers\StatusMessage;
 use App\Http\Resources\CustomerResource;
 use App\Repositories\CustomerRepository;
@@ -67,7 +67,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
     private function checkEmpty($data, string $errorMessaage): void
     {
         if (empty($data)) {
-            throw new CustomersExceptions($errorMessaage);
+            throw new CustomerExceptions($errorMessaage);
         }
     }
  }
