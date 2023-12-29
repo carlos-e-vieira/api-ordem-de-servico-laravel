@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderOfServiceController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ Route::prefix('v1')->middleware('jwt.auth')->group(function () {
     Route::apiResource('user', UserController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('service', ServiceController::class);
+    Route::apiResource('order-of-service', OrderOfServiceController::class);
 
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);

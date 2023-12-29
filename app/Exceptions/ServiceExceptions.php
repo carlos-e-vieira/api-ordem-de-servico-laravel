@@ -9,10 +9,10 @@ use Illuminate\Http\Response;
 class ServiceExceptions extends OrchestratorException
 {
     protected $errorStatuses = [
-        'getAllServicesForSale' => Response::HTTP_NOT_FOUND,
-        'saveServiceForSale' => Response::HTTP_UNPROCESSABLE_ENTITY,
-        'getServiceForSaleById' => Response::HTTP_NOT_FOUND,
-        'updateServiceForSale' => Response::HTTP_UNPROCESSABLE_ENTITY,
-        'deleteServiceForSale' => Response::HTTP_NOT_FOUND,
+        'getAllServices' => Response::HTTP_NOT_FOUND,
+        'saveService' => Response::HTTP_UNPROCESSABLE_ENTITY,
+        'getServiceById' => Response::HTTP_NOT_FOUND,
+        'updateService' => Response::HTTP_UNPROCESSABLE_ENTITY,
+        'deleteService' => Response::HTTP_NOT_FOUND,
     ];
 }
